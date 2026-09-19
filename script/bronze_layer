@@ -1,7 +1,7 @@
-This is the original dataset I have create a copy of each so that We don't lose the main file 
-I have imported pandas library from python 
-Then with .read_csv I have imported the file 
-Now in the silver layer data cleaning executed 
+This is the original dataset. I have created a copy of each so that we don't lose the main file 
+I have imported the pandas library in Python 
+Then with .read_csv, I have imported the file 
+Now, in the silver layer, data cleaning is executed 
 
 
 import pandas as pd
