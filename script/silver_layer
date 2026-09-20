@@ -1,0 +1,55 @@
+Complete cleaning of Table cust_az12 using pandas 
+
+import pandas as pd
+import numpy as np
+
+cust_az12 = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_erp\CUST_AZ12.csv")
+
+cust_az12.head(10)
+
+cust_az12[cust_az12.CID.isna()]
+
+cust_az12[cust_az12.BDATE.isna()]
+
+cust_az12[cust_az12.GEN.isna()]
+
+I want to check the birth date (some birth dates are very old)
+
+cust_az12["birthdate"]= pd.to_datetime(cust_az12.BDATE, errors='coerce')
+
+This intermediate data is called cust_az12_f
+
+cust_az12_f = cust_az12[cust_az12.birthdate >= "1930-01-01"]
+
+cust_az12_f
+
+Now, I want to transform the required column
+
+cust_az12_f['cust-id']= cust_az12_f.CID.replace(r'^NAS','', regex=True)
+
+cust_az12_f[cust_az12_f["cust-id"].str.contains(r"^NAS", regex=True)]
+
+Now it is important to understand the values in the low-cardinality column
+
+cust_az12_f.GEN.unique()
+
+cust_az12_f["gender"]= cust_az12_f.GEN.str.strip().replace({'M':'Male', 'F':'Female','':'n/a', np.nan:'n/a'}) 
+
+Changing the name of a column
+
+cust_az12_f.rename(columns={'cust-id':'cust_id'}, inplace=True)
+
+Now I want to load this file into a folder
+
+cust_az12_f2= cust_az12_f[['cust_id', 'birthdate', 'gender']]
+
+cust_az12_f2.to_csv(r'D:\Downloads\data_analytics_data\cust_az12_c.csv', index = None)
+
+
+
+
+
+
+
+
+
