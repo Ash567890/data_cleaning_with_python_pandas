@@ -1,4 +1,4 @@
-Complete cleaning of Table cust_az12 using pandas 
+# Complete cleaning of Table cust_az12 using pandas 
 
 import pandas as pd
 import numpy as np
@@ -45,11 +45,40 @@ cust_az12_f2= cust_az12_f[['cust_id', 'birthdate', 'gender']]
 
 cust_az12_f2.to_csv(r'D:\Downloads\data_analytics_data\cust_az12_c.csv', index = None)
 
+########################################################################################################################
+LOC_A101 table cleaning 
+########################################################################################################################
 
+loc_a101 = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_erp\LOC_A101.csv")
 
+# Checking for null and empty values
 
+loc_a101[loc_a101.CID == 'NaN']
 
+loc_a101[loc_a101['CID'].isnull()]
 
+# Checking for leading and trailing whitespace
 
+loc_a101[loc_a101.CID == loc_a101.CID.str.strip]
 
+loc_a101['cust_id']= loc_a101['CID'].replace(r'-','', regex=True)
 
+# Running a test to check the quality
+
+loc_a101[loc_a101.cust_id.str.contains(r'-', regex=True)]
+
+loc_a101[loc_a101.CID.str.startswith('AW')==False]
+
+# Checking country cardinality
+
+loc_a101['CNTRY'].unique()
+
+loc_a101["country"]= loc_a101['CNTRY'].str.strip().replace({'DE':"Germany", 'US':'United States', 'USA':'United States', np.nan:'n/a', '':'n/a'})
+
+loc_a101.country.unique()
+
+loc_a101_c = loc_a101[['cust_id', 'country']]
+
+loc_a101_c
+
+loc_a101_c.to_csv(r'D:\Downloads\data_analytics_data\loc_a101_c.csv', index = None)
