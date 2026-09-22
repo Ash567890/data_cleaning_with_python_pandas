@@ -1,1 +1,43 @@
+This is the original dataset. I have created a copy of each so that we don't lose the main file 
+I have imported the pandas library in Python 
+Then, with df.read_csv, I have imported the file 
+Now, in the silver layer, data cleaning is executed 
 
+
+import pandas as pd
+
+# Importing sales data
+
+sales_csv = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_crm\sales_details.csv", index_col=None)
+
+sales_df = sales_csv.copy()
+
+# Importing customer data
+
+customer_csv = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_crm\cust_info.csv")
+
+customer__csv_df = customer_csv.copy()
+
+# Importing product data
+
+product_csv = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_crm\prd_info.csv", index_col=None)
+
+product_csv_df = product_csv.copy()
+
+# Importing customer(erp) data
+
+cust_az = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_erp\CUST_AZ12.csv")
+
+cust_az_df = cust_az.copy()
+
+# Importing location(erp) data
+
+location_az = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_erp\LOC_A101.csv")
+
+location_az_df = location_az.copy()
+
+# Importing category(erp) data
+
+cat_az = pd.read_csv(r"D:\SQL resource\sql-data-warehouse-project\sql-data-warehouse-project\datasets\source_erp\PX_CAT_G1V2.csv")
+
+cat_az_df = cat_az.copy()
